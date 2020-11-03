@@ -26,7 +26,7 @@ public class OrderPersister {
     @Outgoing("to-barista")
     public Long incoming(OrderModel orderModel) {
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.name = orderModel.name;
+        orderEntity.name = orderModel.customerName;
         orderEntity.product = orderModel.product;
         orderEntity.persist();
         logger.info("persisted order");

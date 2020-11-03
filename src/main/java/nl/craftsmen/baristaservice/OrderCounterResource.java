@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 import nl.craftsmen.baristaservice.models.MenuModel;
 import nl.craftsmen.baristaservice.models.OrderModel;
 import nl.craftsmen.baristaservice.models.Product;
-import nl.craftsmen.baristaservice.models.ProductType;
+import nl.craftsmen.baristaservice.models.Beverage;
 
 @Path("/")
 public class OrderCounterResource {
@@ -51,10 +51,10 @@ public class OrderCounterResource {
     public MenuModel menu() {
         MenuModel menuModel = new MenuModel();
         menuModel.greetingMessage = message;
-        for (ProductType productType: ProductType.values()) {
+        for (Beverage beverage : Beverage.values()) {
             Product product = new Product();
-            product.name = productType;
-            product.price = pricesClient.get(productType.toString()).price;
+            product.beverage = beverage;
+            product.price = pricesClient.get(beverage.toString()).price;
             menuModel.menu.add(product);
         }
         return menuModel;

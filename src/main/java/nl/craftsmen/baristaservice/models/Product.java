@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Product {
 
-    public ProductType name;
+    public Beverage beverage;
     public BigDecimal price;
 
 }

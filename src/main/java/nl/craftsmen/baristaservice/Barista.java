@@ -36,8 +36,8 @@ public class Barista {
         logger.info("order retrieved");
         DeliveryModel deliveryModel = new DeliveryModel();
         deliveryModel.createdBy = baristaName;
-        deliveryModel.name = orderEntity.name;
-        deliveryModel.product = orderEntity.product;
+        deliveryModel.customerName = orderEntity.name;
+        deliveryModel.beverage = orderEntity.product;
         logger.info("send to counter");
         deliveryEmitter.send(deliveryModel);
     }

@@ -5,11 +5,10 @@ import javax.validation.constraints.NotEmpty;
 public class DeliveryModel {
 
     @NotEmpty
-    public String name;
+    public String customerName;
 
     @NotEmpty
-    public ProductType product;
-
+    public Beverage beverage;
 
     @NotEmpty
     public String createdBy;

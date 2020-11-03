@@ -1,6 +1,6 @@
 package nl.craftsmen.baristaservice.models;
 
-public enum ProductType {
+public enum Beverage {
 
     american,
     espresso,

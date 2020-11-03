@@ -6,9 +6,9 @@ import javax.validation.constraints.NotNull;
 public class OrderModel {
 
     @NotEmpty
-    public String name;
+    public String customerName;
 
     @NotNull
-    public ProductType product;
+    public Beverage product;
 
 }
