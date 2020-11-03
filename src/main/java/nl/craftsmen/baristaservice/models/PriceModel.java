@@ -1,4 +1,4 @@
-package nl.craftsmen.baristaservice;
+package nl.craftsmen.baristaservice.models;
 
 import java.math.BigDecimal;
 

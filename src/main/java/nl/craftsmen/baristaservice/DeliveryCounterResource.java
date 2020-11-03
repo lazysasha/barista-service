@@ -12,20 +12,22 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/outcounter")
-public class OutCounter {
+import nl.craftsmen.baristaservice.models.DeliveryModel;
 
-    Logger logger = LoggerFactory.getLogger(OutCounter.class);
+@Path("/outcounter")
+public class DeliveryCounterResource {
+
+    Logger logger = LoggerFactory.getLogger(DeliveryCounterResource.class);
 
     @Inject
     @Channel("in-counter")
-    Publisher<CompleteOrder> prices;
+    Publisher<DeliveryModel> deliveries;
 
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType("application/json")
-    public Publisher<CompleteOrder> stream() {
-        return prices;
+    public Publisher<DeliveryModel> stream() {
+        return deliveries;
     }
 }

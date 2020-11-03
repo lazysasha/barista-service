@@ -11,6 +11,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.control.ActivateRequestContext;
 import javax.transaction.Transactional;
 
+import nl.craftsmen.baristaservice.models.OrderModel;
+
 @ApplicationScoped
 @ActivateRequestContext
 public class OrderPersister {
@@ -21,13 +23,14 @@ public class OrderPersister {
     @Merge
     @Blocking
     @Transactional
-    @Outgoing("out-order-retrieve")
-    public String incoming(OrderModel orderModel) {
+    @Outgoing("to-barista")
+    public Long incoming(OrderModel orderModel) {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.name = orderModel.name;
+        orderEntity.product = orderModel.product;
         orderEntity.persist();
         logger.info("persisted order");
-        return "retrieve";
+        return orderEntity.id;
     }
 
 }
