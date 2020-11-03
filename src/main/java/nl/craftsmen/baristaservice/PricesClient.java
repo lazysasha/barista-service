@@ -2,8 +2,10 @@ package nl.craftsmen.baristaservice;
 
 import java.math.BigDecimal;
 
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.ws.rs.GET;
@@ -18,7 +20,9 @@ public interface PricesClient {
 
     @GET
     @Path("/prices/{productName}")
-    @Retry(maxRetries = 5)
+    @Retry(maxRetries = 2)
+    @Timeout(250)
+    @CircuitBreaker
     @Fallback(fallbackMethod = "fallback")
     PriceModel get(@PathParam("productName") String productName);
 
