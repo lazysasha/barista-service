@@ -9,7 +9,10 @@ Summary of assignments:
 - Write GET endpoint for menu echoing hello -> use config property
 - Write REST client for prices connecting to headquarters (service on AWS)
 - Merge price info with menu
-- Connect to unreliable endpoint and solve with *circuitbreaker* and *retry*
+
+### Fault tolerance
+
+* There is a new price endpoint. However, it's in alpha state and flaky. We'll make up our own price in that case. Build a retry and fallback method to counter this.
 
 ### Ordering a drink
 
@@ -34,7 +37,15 @@ Summary of assignments:
 - Send order to order endpoint
 - completed order should come out the other end
 
+### Observability
+
+- Look at live and ready endpoints
+- Build a readyness probe for the database
+
+
+
 ### Bonus round
 
 - Make DB access of Barista fully reactive with R2DBC (unprepared)
+- Circuitbreaker
 - Build native app with GraalVM (unprepared)
