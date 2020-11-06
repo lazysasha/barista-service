@@ -1,6 +1,6 @@
 package nl.craftsmen.headquarters;
 
-import nl.craftsmen.baristaservice.models.PriceModel;
+import nl.craftsmen.baristaservice.models.Price;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,16 +16,16 @@ public class HeadquartersResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/prices/{productName}")
-    public PriceModel getPrice(@PathParam("productName") String productName) {
-        PriceModel priceModel = new PriceModel();
-        priceModel.price = generateRandomBigDecimalFromRange(BigDecimal.ONE, BigDecimal.TEN);
-        return priceModel;
+    public Price getPrice(@PathParam("productName") String productName) {
+        Price price = new Price();
+        price.price = generateRandomBigDecimalFromRange(BigDecimal.ONE, BigDecimal.TEN);
+        return price;
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/prices/{productName}/v2")
-    public PriceModel getPriceV2(@PathParam("productName") String productName) {
+    public Price getPriceV2(@PathParam("productName") String productName) {
         throw new RuntimeException("this bloody thing never works!");
     }
 

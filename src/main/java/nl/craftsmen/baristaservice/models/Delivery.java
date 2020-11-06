@@ -1,14 +1,16 @@
 package nl.craftsmen.baristaservice.models;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-public class OrderModel {
+public class Delivery {
 
     @NotEmpty
     public String customerName;
 
-    @NotNull
-    public Beverage product;
+    @NotEmpty
+    public Beverage beverage;
+
+    @NotEmpty
+    public String createdBy;
 
 }

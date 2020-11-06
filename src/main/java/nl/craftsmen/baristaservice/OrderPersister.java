@@ -11,7 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.control.ActivateRequestContext;
 import javax.transaction.Transactional;
 
-import nl.craftsmen.baristaservice.models.OrderModel;
+import nl.craftsmen.baristaservice.models.Order;
 
 @ApplicationScoped
 @ActivateRequestContext
@@ -24,10 +24,10 @@ public class OrderPersister {
     @Blocking
     @Transactional
     @Outgoing("to-barista")
-    public Long incoming(OrderModel orderModel) {
+    public Long incoming(Order order) {
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.name = orderModel.customerName;
-        orderEntity.product = orderModel.product;
+        orderEntity.name = order.customerName;
+        orderEntity.product = order.product;
         orderEntity.persist();
         logger.info("persisted order");
         return orderEntity.id;

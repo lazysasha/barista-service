@@ -12,7 +12,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
-import nl.craftsmen.baristaservice.models.PriceModel;
+import nl.craftsmen.baristaservice.models.Price;
 
 @Path("/")
 @RegisterRestClient
@@ -24,11 +24,11 @@ public interface PricesClient {
     @Timeout(250)
     @CircuitBreaker
     @Fallback(fallbackMethod = "fallback")
-    PriceModel get(@PathParam("productName") String productName);
+    Price get(@PathParam("productName") String productName);
 
-    default PriceModel fallback(String productName) {
-        PriceModel priceModel = new PriceModel();
-        priceModel.price = BigDecimal.TEN;
-        return priceModel;
+    default Price fallback(String productName) {
+        Price price = new Price();
+        price.price = BigDecimal.TEN;
+        return price;
     }
 }

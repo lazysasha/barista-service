@@ -13,7 +13,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.control.ActivateRequestContext;
 import javax.inject.Inject;
 
-import nl.craftsmen.baristaservice.models.DeliveryModel;
+import nl.craftsmen.baristaservice.models.Delivery;
 
 @ApplicationScoped
 @ActivateRequestContext
@@ -26,7 +26,7 @@ public class Barista {
 
     @Inject
     @Channel("out-counter")
-    Emitter<DeliveryModel> deliveryEmitter;
+    Emitter<Delivery> deliveryEmitter;
 
     @Incoming("from-orders")
     @Blocking
@@ -34,11 +34,11 @@ public class Barista {
         logger.info("retrieving order");
         OrderEntity orderEntity = OrderEntity.findById(orderId);
         logger.info("order retrieved");
-        DeliveryModel deliveryModel = new DeliveryModel();
-        deliveryModel.createdBy = baristaName;
-        deliveryModel.customerName = orderEntity.name;
-        deliveryModel.beverage = orderEntity.product;
+        Delivery delivery = new Delivery();
+        delivery.createdBy = baristaName;
+        delivery.customerName = orderEntity.name;
+        delivery.beverage = orderEntity.product;
         logger.info("send to counter");
-        deliveryEmitter.send(deliveryModel);
+        deliveryEmitter.send(delivery);
     }
 }

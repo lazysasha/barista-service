@@ -12,7 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import nl.craftsmen.baristaservice.models.DeliveryModel;
+import nl.craftsmen.baristaservice.models.Delivery;
 
 @Path("/outcounter")
 public class DeliveryCounterResource {
@@ -21,13 +21,13 @@ public class DeliveryCounterResource {
 
     @Inject
     @Channel("in-counter")
-    Publisher<DeliveryModel> deliveries;
+    Publisher<Delivery> deliveries;
 
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType("application/json")
-    public Publisher<DeliveryModel> stream() {
+    public Publisher<Delivery> stream() {
         return deliveries;
     }
 }

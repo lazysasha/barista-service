@@ -2,7 +2,7 @@ package nl.craftsmen.baristaservice.models;
 
 import java.math.BigDecimal;
 
-public class PriceModel {
+public class Price {
 
     public BigDecimal price;
 }

@@ -18,8 +18,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import nl.craftsmen.baristaservice.models.MenuModel;
-import nl.craftsmen.baristaservice.models.OrderModel;
+import nl.craftsmen.baristaservice.models.Menu;
+import nl.craftsmen.baristaservice.models.Order;
 import nl.craftsmen.baristaservice.models.Product;
 import nl.craftsmen.baristaservice.models.Beverage;
 
@@ -37,7 +37,7 @@ public class OrderCounterResource {
 
     @Inject
     @Channel("outgoing-orders")
-    Emitter<OrderModel> orderEmitter;
+    Emitter<Order> orderEmitter;
 
     @GET
     @Path("/hello")
@@ -48,16 +48,16 @@ public class OrderCounterResource {
     @GET
     @Path("/menu")
     @Produces(MediaType.APPLICATION_JSON)
-    public MenuModel menu() {
-        MenuModel menuModel = new MenuModel();
-        menuModel.greetingMessage = message;
+    public Menu menu() {
+        Menu menu = new Menu();
+        menu.greetingMessage = message;
         for (Beverage beverage : Beverage.values()) {
             Product product = new Product();
             product.beverage = beverage;
             product.price = pricesClient.get(beverage.toString()).price;
-            menuModel.menu.add(product);
+            menu.menu.add(product);
         }
-        return menuModel;
+        return menu;
     }
 
     @POST
@@ -65,8 +65,8 @@ public class OrderCounterResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Counted(name = "receivedOrders", description = "How many orders are received")
     @Timed(name = "orderTimer", description = "A measure of how long it takes to process an order")
-    public void order(@Valid OrderModel orderModel) {
+    public void order(@Valid Order order) {
         logger.info("sending ordermodel");
-        orderEmitter.send(orderModel);
+        orderEmitter.send(order);
     }
 }
