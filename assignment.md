@@ -7,7 +7,7 @@ Congratulations! You are the proud owner of a new franchise license of CoffeeBuc
 * The barista, who will pick up the order and make the coffee
 * The delivery counter, where you can pick up your coffee.
 
-Furthermore, the CoffeeBucks ™ headquarters tries to make us much money from you as possible, so it's not allowed for you to determine your own prices. So for each and every order, you have to get the latest price from headquarters (you'll see that they're rather erratic!).
+Furthermore, the CoffeeBucks ™ headquarters tries to make as much money from you as possible, so it's not allowed for you to determine your own prices. So for each and every order, you have to get the latest price from headquarters (you'll see that they're rather erratic!).
 
 ![coffeehouse](coffeehouse.jpg)
 
@@ -16,6 +16,7 @@ Furthermore, the CoffeeBucks ™ headquarters tries to make us much money from y
 - Java IDE 
 - Java 11 JDK
 - Docker
+- Maven 3.6.2 (or higher)
 - Git
 - Either Postman, HttpClient (IntelliJ), curl or httpie (or whatever enables you to send POST messages)
 - A database client (either IntelliJ Ultimate, Squirrel or something else)
@@ -29,7 +30,7 @@ docker-compose up
 ```
 - Start the Coffeehouse service by executing in another terminal
 ```
-mvnw quarkus:dev
+./mvnw quarkus:dev
 ```
 Quarkus will start on port 8080 in development mode, which means that any change you make will result in an automatic redeployment. No need to restart the server (usually).
 
@@ -102,7 +103,7 @@ To prevent this we can add BeanValidation to the `orders` endpoint.
 
 Store the order in the database, so the Barista can pick it up later.
 
-We are going to use the Actve Record style using Panache. You can also use the Panache Repository (but that will not be explained here).
+We are going to use the Active Record style using Panache. You can also use the Panache Repository (but that will not be explained here).
 
 - The `OrderEntity` class must extend the `PanacheEntity` class and be a JPA entity.
 - Add the fields from the `Order` to  the `OrderEntity`.
@@ -122,7 +123,7 @@ quarkus.hibernate-orm.database.generation=drop-and-create
 
 You should now see an exception in the console log, complaining that the database operation is a blocking operation and is not allowed on an asynchronous thread.
 
-- Add a Blocking annotation to prevent this (or you can make the entire database transaction reactive, but we don't recommend that right now)
+- Add a `Blocking` annotation to prevent this (or you can make the entire database transaction reactive, but we don't recommend that right now)
 
 ![Test][check] Post an order and test if the order is persisted in the database by querying the OrderEntity table (using the url and credentials above)
 
@@ -179,12 +180,12 @@ The stream contains JSON content
 ### Test the whole system
 
 - Send order to order endpoint
-- completed order should come out the other end
+- Completed order should come out the other end
 
 ### Observability
 
 - Look at live and ready endpoints
-- Build a readyness probe for the database
+- Build a readiness probe for the database
 
 
 
