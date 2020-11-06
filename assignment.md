@@ -11,7 +11,7 @@ Furthermore, the CoffeeBucks ™ headquarters tries to make us much money from y
 
 
 
-![coffeehouse](C:\data\barista-service\coffeehouse.jpg)
+![coffeehouse](coffeehouse.jpg)
 
 ### Build REST controller
 
