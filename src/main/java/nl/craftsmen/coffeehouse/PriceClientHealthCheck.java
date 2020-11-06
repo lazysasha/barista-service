@@ -1,9 +1,9 @@
-package nl.craftsmen.baristaservice;
+package nl.craftsmen.coffeehouse;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import nl.craftsmen.baristaservice.models.Beverage;
+import nl.craftsmen.coffeehouse.models.Beverage;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;

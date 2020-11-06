@@ -1,4 +1,4 @@
-package nl.craftsmen.baristaservice;
+package nl.craftsmen.coffeehouse;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 import io.smallrye.reactive.messaging.annotations.Merge;
@@ -11,7 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.control.ActivateRequestContext;
 import javax.transaction.Transactional;
 
-import nl.craftsmen.baristaservice.models.Order;
+import nl.craftsmen.coffeehouse.models.Order;
 
 @ApplicationScoped
 @ActivateRequestContext

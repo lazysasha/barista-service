@@ -1,10 +1,10 @@
-package nl.craftsmen.baristaservice;
+package nl.craftsmen.coffeehouse;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.Entity;
 
-import nl.craftsmen.baristaservice.models.Beverage;
+import nl.craftsmen.coffeehouse.models.Beverage;
 
 @Entity
 public class OrderEntity extends PanacheEntity {

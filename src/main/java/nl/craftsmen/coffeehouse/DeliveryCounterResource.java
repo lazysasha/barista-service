@@ -1,4 +1,4 @@
-package nl.craftsmen.baristaservice;
+package nl.craftsmen.coffeehouse;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
@@ -12,7 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import nl.craftsmen.baristaservice.models.Delivery;
+import nl.craftsmen.coffeehouse.models.Delivery;
 
 @Path("/outcounter")
 public class DeliveryCounterResource {

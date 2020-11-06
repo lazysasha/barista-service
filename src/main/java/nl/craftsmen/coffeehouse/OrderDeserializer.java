@@ -1,6 +1,6 @@
-package nl.craftsmen.baristaservice;
+package nl.craftsmen.coffeehouse;
 
-import nl.craftsmen.baristaservice.models.Order;
+import nl.craftsmen.coffeehouse.models.Order;
 
 import io.quarkus.kafka.client.serialization.ObjectMapperDeserializer;
 

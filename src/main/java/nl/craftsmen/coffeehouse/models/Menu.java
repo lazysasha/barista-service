@@ -1,4 +1,4 @@
-package nl.craftsmen.baristaservice.models;
+package nl.craftsmen.coffeehouse.models;
 
 import java.util.ArrayList;
 import java.util.List;

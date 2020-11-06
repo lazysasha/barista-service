@@ -1,4 +1,4 @@
-package nl.craftsmen.baristaservice.models;
+package nl.craftsmen.coffeehouse.models;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

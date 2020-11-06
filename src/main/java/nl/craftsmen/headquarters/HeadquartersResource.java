@@ -1,6 +1,6 @@
 package nl.craftsmen.headquarters;
 
-import nl.craftsmen.baristaservice.models.Price;
+import nl.craftsmen.coffeehouse.models.Price;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

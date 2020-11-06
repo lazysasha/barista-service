@@ -1,4 +1,4 @@
-package nl.craftsmen.baristaservice;
+package nl.craftsmen.coffeehouse;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
@@ -13,7 +13,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.control.ActivateRequestContext;
 import javax.inject.Inject;
 
-import nl.craftsmen.baristaservice.models.Delivery;
+import nl.craftsmen.coffeehouse.models.Delivery;
 
 @ApplicationScoped
 @ActivateRequestContext

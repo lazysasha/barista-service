@@ -1,4 +1,4 @@
-package nl.craftsmen.baristaservice;
+package nl.craftsmen.coffeehouse;
 
 import java.math.BigDecimal;
 
@@ -12,7 +12,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
-import nl.craftsmen.baristaservice.models.Price;
+import nl.craftsmen.coffeehouse.models.Price;
 
 @Path("/")
 @RegisterRestClient

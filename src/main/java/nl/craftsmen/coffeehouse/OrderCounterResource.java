@@ -1,4 +1,4 @@
-package nl.craftsmen.baristaservice;
+package nl.craftsmen.coffeehouse;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.metrics.annotation.Counted;
@@ -18,10 +18,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import nl.craftsmen.baristaservice.models.Menu;
-import nl.craftsmen.baristaservice.models.Order;
-import nl.craftsmen.baristaservice.models.Product;
-import nl.craftsmen.baristaservice.models.Beverage;
+import nl.craftsmen.coffeehouse.models.Menu;
+import nl.craftsmen.coffeehouse.models.Order;
+import nl.craftsmen.coffeehouse.models.Product;
+import nl.craftsmen.coffeehouse.models.Beverage;
 
 @Path("/")
 public class OrderCounterResource {

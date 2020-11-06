@@ -1,6 +1,6 @@
-# Build your own barista
+# Build your own coffeehouse
 
-Summary of assignments:
+Congratulations! You are the proud owner of a new franchise license of CoffeeBucks ™, so you're allowed to open your own 
 
 
 
