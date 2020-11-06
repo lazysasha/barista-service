@@ -1,13 +1,13 @@
 # Build your own coffeehouse
 
-Congratulations! You are the proud owner of a new franchise license of CoffeeBucks ™, so you're allowed to open your own coffeehouse! The coffeehouse has 4 major components:
+Congratulations! You are the proud owner of a new franchise license of CoffeeBugs ™, so you're allowed to open your own coffeehouse! The coffeehouse has 4 major components:
 
 * The order counter, where you can ask for a menu and place an order
 * The administrator (order persist), who will enter you order in the order database
 * The barista, who will pick up the order and make the coffee
 * The delivery counter, where you can pick up your coffee.
 
-Furthermore, the CoffeeBucks ™ headquarters tries to make as much money from you as possible, so it's not allowed for you to determine your own prices. So for each and every order, you have to get the latest price from headquarters (you'll see that they're rather erratic!).
+Furthermore, the CoffeeBugs ™ headquarters tries to make us much money from you as possible, so it's not allowed for you to determine your own prices. So for each and every order, you have to get the latest price from headquarters (you'll see that they're rather erratic!).
 
 ![coffeehouse](coffeehouse.jpg)
 
@@ -46,7 +46,7 @@ Create a REST controller which returns the menu containing a greeting message an
 > ![Test][check] Test the endpoint using a browser going to `http://localhost:8080/menu`
 
 > You should now see the greeting message.
- 
+
 Retrieve the current prices for all beverages from Headquarters
 
 - Create a declarative RestClient in the PricesClient interface that calls 'http://localhost:8080/prices/{productname}' where `productname` is the name of the beverage. You can use the `Price` class as a response model.
@@ -125,7 +125,7 @@ You should now see an exception in the console log, complaining that the databas
 
 - Add a `Blocking` annotation to prevent this (or you can make the entire database transaction reactive, but we don't recommend that right now)
 
-![Test][check] Post an order and test if the order is persisted in the database by querying the OrderEntity table (using the url and credentials above)
+![Test][check] Post an order and test if the order is persisted in the database by querying the ORDERENTITY table (using the url and credentials above)
 
 ### Exercise 4: Informing the Barista
 
@@ -148,51 +148,133 @@ Now we are going to implement the Barista
 
 Retrieve the order from the database, prepare the delivery and send it to the counter.
 
-In the `Barista` class
-- Create a new incoming and outgoing channel pair in the `application.properties`.
+- Implement the `DeliveryDeserializer` class (see OrderSerializer for inspiration) so the counter can deserialize the message.
+- Create a new incoming and outgoing channel pair ( 3 properties each) in the `application.properties`.
+- Put the `DeliveryDeserializer` in the deserialization configuration for the incoming channel in the `application.properties`
 - Choose a topic name (for example `delivery`).
+
+In the `makeBeverage` method in the `Barista` class:
+
 - Retrieve the order from the database using the order id
 - Create a new `Delivery` instance, filling the barista name, customer name and the beverage
-- Add the appropriate annotations
-- Return the delivery as the result of the `makeBeverage` method
+- Return the `Delivery` as the result of the `makeBeverage` method
+- Add the appropriate annotations (see `OrderPersister`)
 
-In the `DeliveryCounterResource` we will create a fully reactive endpoint that can be opened as a stream by a browser. 
-The stream contains JSON content  
+In the `DeliveryCounterResource` we will create a fully reactive endpoint that can be opened as a stream by a browser.  The stream contains JSON content  
+
 - Create a GET endpoint with path `/outcounter` and which produces `test/event-stream` media types
-- Add the `SseElementType` annotation with the `application/json` media type 
-- Inject a `org.reactivestreams.Publisher` of type `Delivery` which receives the messages from the `Incoming` channel. 
-- The GET endpoint should return this publisher.
+- Add the `@SseElementType` annotation with `application/json` media type 
+- Inject a `org.reactivestreams.Publisher` of type `Delivery` into the class which receives the messages from the `Incoming` channel. 
+- The GET endpoint should return this publisher as a return type.
 
 > ![Test][check] Open a new browser tab on `http://localhost:8080/outcounter` and post an order.
 > You should see the delivery appear in the outcounter tab.
 
-##### Congratulations! You have now an active CoffeeBucks™ franchise.
+##### Congratulations! You have now an active CoffeeBugs™ franchise. Now, the next exercises are bonus rounds! See how far you can manage!
+
+
+
+### Excercise 6: Fault tolerance
+
+CoffeeBugs ™ has introduced a new endpoint for prices: `/prices/{productName}/v2`. They told you it's more up-to-date, more reliable, and faster. And they want you to switch immediately. Great! Well, not so great... the new endpoint is a disaster, often producing errors and seldom producing any price whatsoever. So, you decided you will make up your own price if the service doesn't work. Rebel!
+
+Make the rest client fault-tolerant by using Microprofile fault tolerance.
+
+In the `PricesClient`:
+
+* Add a  `Retry` annotation with `maxRetries` set to 2. 
+* Also, add a  `Fallback` annotation with a fallback method name. You can implement a fallback method with the same name as a default method on the interface.
+* The fallback method should have the same signature as the client method. You can send a fixed price as a return type.
+
+> ![Test][check] Open a new browser tab on http://localhost:8080/menu . After a while, you should see the fixed prices.
+
+
+
+Now, this is working, but it takes quite a  while for each request. So, let's introduce a circuit breaker.
+
+In the `PricesClient`:
+
+* Add a  `CircuitBreaker` annotation. The default values should be fine. 
+
+> ![Test][check] Open a new browser tab on http://localhost:8080/menu . Reload repeatedly. After a while, you should see a noticable speed improvement since the circuit breaker will be open and the price service isn't called anymore.
 
 
 
 
-### Fault tolerance
 
-* There is a new price endpoint. However, it's in alpha state and flaky. We'll make up our own price in that case. Build a retry and fallback method to counter this.
+### Exercise 7: Observability
 
-### 
+At http://localhost:8080/live/ready, all the readiness probes report their status. We're going to make a new readiness probe where we can test the health of the prices endpoint.
 
-### Test the whole system
+Implement the  `PriceClientHealthCheck` class:
 
-- Send order to order endpoint
-- Completed order should come out the other end
+- Annotate with `Readiness`
 
-### Observability
+- The class should implement the interface `org.eclipse.microprofile.health.HealthCheck`.
 
-- Look at live and ready endpoints
-- Build a readiness probe for the database
+- Inject the `PricesClient` interface.
+
+- Build and return readiness response using the  `HealthCheckResponseBuilder`builder class. It has a factory method called `named` which you can use to give the probe a description.
+
+
+> ![Test][check] Open a new browser tab on http://localhost:8080/live/ready. You should now see the new probe appear under the description you gave it, with status "UP".
+
+  
+
+### Exercise 8: Metrics
+
+At http://localhost:8080/metrics, you can find a lot of default metrics in the application.
+
+Implement a metric that counts the number of orders placed in the system.
+
+In the  `OrderCounterResource` class:
+
+- Annotate the order endpoint with a `@Counted` annotation. The annotation takes a name and a description.
+
+  
+
+
+> ![Test][check] Place a couple of orders and open a new browser tab on http://localhost:8080/metrics. You should be able to find the metric name and number of placed order somewhere in the list.
+
+### Exercise 9: Build a native image
+
+One of the key features of Quarkus is the ability to build a native image using [GraalVM](https://www.graalvm.org/). A native image has a small memory footprint and is blazing fast. This takes three steps:
+
+
+
+Build a native image by executing
+
+```bash
+mvnw package -Pnative -Dquarkus.native.container-build=true
+```
+
+This will create a Linux native executable using a Dockerized version of GraalVM. That means you don't have to install GraalVM yourself.
+
+
+
+A Linux native image probably doesn't run on your operating system (unless you have Linux, of course). So, first, we have to containerize the native application:
+
+```bash
+docker build -f src/main/docker/Dockerfile.native -t quarkus-coffeehouse/coffeehouse-service .
+```
+
+This will create a docker image of the application.
+
+
+
+The last step is to just run it:
+
+```
+docker run -i --rm -p 8080:8080 quarkus-coffeehouse/coffeehouse-service
+```
+
+You can now access the application at the usual addresses and endpoints.
+
 
 
 
 ### Bonus round
 
-- Make DB access of Barista fully reactive with R2DBC (unprepared)
-- Circuitbreaker
-- Build native app with GraalVM (unprepared)
+- To remove the blocking operations , make database access fully reactive with R2DBC (you're on your own here!)
 
 [check]: checkmark.png
