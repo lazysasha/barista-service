@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import nl.craftsmen.coffeehouse.models.Delivery;
 
-@Path("/outcounter")
+@Path("/")
 public class DeliveryCounterResource {
 
     Logger logger = LoggerFactory.getLogger(DeliveryCounterResource.class);
@@ -24,7 +24,7 @@ public class DeliveryCounterResource {
     Publisher<Delivery> deliveries;
 
     @GET
-    @Path("/stream")
+    @Path("/outcounter")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType("application/json")
     public Publisher<Delivery> stream() {

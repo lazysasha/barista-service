@@ -1,7 +1,7 @@
 package nl.craftsmen.coffeehouse;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
-import io.smallrye.reactive.messaging.annotations.Merge;
+
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.slf4j.Logger;
@@ -20,14 +20,13 @@ public class OrderPersister {
     Logger logger = LoggerFactory.getLogger(OrderPersister.class);
 
     @Incoming("incoming-orders")
-    @Merge
     @Blocking
     @Transactional
     @Outgoing("to-barista")
     public Long incoming(Order order) {
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.name = order.customerName;
-        orderEntity.product = order.product;
+        orderEntity.customerName = order.customerName;
+        orderEntity.beverage = order.beverage;
         orderEntity.persist();
         logger.info("persisted order");
         return orderEntity.id;

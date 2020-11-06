@@ -9,7 +9,7 @@ import nl.craftsmen.coffeehouse.models.Beverage;
 @Entity
 public class OrderEntity extends PanacheEntity {
 
-    public String name;
+    public String customerName;
 
-    public Beverage product;
+    public Beverage beverage;
 }

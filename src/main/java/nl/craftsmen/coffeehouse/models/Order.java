@@ -9,6 +9,6 @@ public class Order {
     public String customerName;
 
     @NotNull
-    public Beverage product;
+    public Beverage beverage;
 
 }

@@ -61,7 +61,7 @@ public class OrderCounterResource {
     }
 
     @POST
-    @Path("/order")
+    @Path("/orders")
     @Consumes(MediaType.APPLICATION_JSON)
     @Counted(name = "receivedOrders", description = "How many orders are received")
     @Timed(name = "orderTimer", description = "A measure of how long it takes to process an order")

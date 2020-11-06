@@ -1,19 +1,17 @@
 package nl.craftsmen.coffeehouse;
 
-import io.smallrye.reactive.messaging.annotations.Blocking;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.control.ActivateRequestContext;
+
+import nl.craftsmen.coffeehouse.models.Delivery;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.control.ActivateRequestContext;
-import javax.inject.Inject;
-
-import nl.craftsmen.coffeehouse.models.Delivery;
+import io.smallrye.reactive.messaging.annotations.Blocking;
 
 @ApplicationScoped
 @ActivateRequestContext
@@ -24,21 +22,17 @@ public class Barista {
 
     Logger logger = LoggerFactory.getLogger(Barista.class);
 
-    @Inject
-    @Channel("out-counter")
-    Emitter<Delivery> deliveryEmitter;
-
     @Incoming("from-orders")
     @Blocking
-    public void makeBeverage(Long orderId) {
-        logger.info("retrieving order");
+    @Outgoing("out-counter")
+    public Delivery makeBeverage(Long orderId) {
+        logger.info("retrieving order with id: {}", orderId);
         OrderEntity orderEntity = OrderEntity.findById(orderId);
-        logger.info("order retrieved");
         Delivery delivery = new Delivery();
         delivery.createdBy = baristaName;
-        delivery.customerName = orderEntity.name;
-        delivery.beverage = orderEntity.product;
-        logger.info("send to counter");
-        deliveryEmitter.send(delivery);
+        delivery.customerName = orderEntity.customerName;
+        delivery.beverage = orderEntity.beverage;
+        logger.info("send delivery to counter: {}", delivery);
+        return delivery;
     }
 }
