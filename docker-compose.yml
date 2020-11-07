@@ -1,34 +1,35 @@
-version: '2'
+---
+version: '3.5'
+
+networks:
+  rmoff_kafka:
+    name: rmoff_kafka
 
 services:
-
   zookeeper:
-    image: strimzi/kafka:0.11.3-kafka-2.1.0
-    command: [
-        "sh", "-c",
-        "bin/zookeeper-server-start.sh config/zookeeper.properties"
-    ]
-    ports:
-      - "2181:2181"
+    image: confluentinc/cp-zookeeper:5.5.0
+    container_name: zookeeper
+    networks:
+      - rmoff_kafka
     environment:
-      LOG_DIR: /tmp/logs
+      ZOOKEEPER_CLIENT_PORT: 2181
 
-  kafka:
-    image: strimzi/kafka:0.11.3-kafka-2.1.0
-    command: [
-        "sh", "-c",
-        "bin/kafka-server-start.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
-    ]
+  broker:
+    image: confluentinc/cp-kafka:5.5.0
+    container_name: broker
+    networks:
+      - rmoff_kafka
     depends_on:
       - zookeeper
     ports:
+      - "19092:19092"
       - "9092:9092"
     environment:
-      LOG_DIR: "/tmp/logs"
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://host.docker.internal:9092,CONNECTIONS_FROM_HOST://localhost:19092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
   h2:
     container_name: 'h2'
     hostname: 'h2'
