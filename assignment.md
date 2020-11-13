@@ -1,5 +1,7 @@
 # Build your own coffeehouse
 
+![CoffeeBugs](CoffeeBugs.jpg)
+
 Congratulations! You are the proud owner of a new franchise license of CoffeeBugs ™, so you're allowed to open your own coffeehouse! The coffeehouse has 4 major components:
 
 * The order counter, where you can ask for a menu and place an order
