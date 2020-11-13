@@ -1,0 +1,80 @@
+@font-face {
+    font-family: CoffeeBugsFont;
+    src: url(../font/TradeGothicLT.woff);
+}
+
+body {
+    margin: 0;
+    font-family: CoffeeBugsFont;
+}
+.left {
+    background-image: url(../menu/left.jpg);
+    background-repeat: no-repeat;
+    background-position: -90px 0;
+    height: 380px;
+    width: 300px;
+    float: left;
+}
+.right {
+    height: 300px;
+    width: calc(100% - 380px);
+    float: left;
+    background-color: black;
+    color: white;
+    padding: 40px;
+}
+#greeting {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.header {
+    font-size: 16px;
+    font-weight: bold;
+}
+.coffee-type {
+    width: 40%;
+    float: left;
+    font-size: inherit;
+}
+.coffee-type.wide {
+    width: 100%;
+}
+.coffee-type::first-letter {
+    text-transform: uppercase;
+}
+.coffee-size {
+    font-size: 12px;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+.coffee-price-tall,
+.coffee-price-grande,
+.coffee-price-venti {
+    width: 20%;
+    float: left;
+    font-size: inherit;
+}
+.sold-out .coffee-price-tall,
+.sold-out .coffee-price-grande,
+.sold-out .coffee-price-venti,
+.sold-out.coffee-price-grande,
+.sold-out.coffee-price-venti {
+    text-decoration: line-through;
+    color: red;
+}
+#menu div:last-child {
+    margin-bottom: 20px;
+}
+@media screen and (max-width: 870px)
+{
+    .left {
+        width: 100%;
+        background-position: 0 0;
+        position: absolute;
+        top: 380px;
+    }
+    .right {
+        width: calc(100% - 80px);
+    }
+}
