@@ -7,72 +7,84 @@ body {
     margin: 0;
     font-family: CoffeeBugsFont;
 }
-.left {
-    background-image: url(../menu/left.jpg);
+.shop {
+    width: 1211px;
+    height: 626px;
+    background-image: url(../images/shop.svg);
     background-repeat: no-repeat;
-    background-position: -90px 0;
-    height: 380px;
-    width: 300px;
+    animation-name: moveShop;
+    animation-delay: 1s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+.filler {
+    width: 601px;
+    height: 626px;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    left: 1211px;
+}
+#menu {
+    width: 1211px;
+    height: 626px;
+    background-image: url(../images/shop.svg);
+    background-repeat: no-repeat;
+}
+.coffee {
+    position: absolute;
+    top: 180px;
+    left: 57px;
+    color: #fff;
+    width: 200px;
+}
+.coffee .type,
+.coffee .price {
+    width: 50%;
     float: left;
+    overflow: hidden;
 }
-.right {
-    height: 300px;
-    width: calc(100% - 380px);
-    float: left;
-    background-color: black;
-    color: white;
-    padding: 40px;
-}
-#greeting {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-.header {
-    font-size: 16px;
-    font-weight: bold;
-}
-.coffee-type {
-    width: 40%;
-    float: left;
-    font-size: inherit;
-}
-.coffee-type.wide {
-    width: 100%;
-}
-.coffee-type::first-letter {
+.coffee .type::first-letter {
     text-transform: uppercase;
 }
-.coffee-size {
-    font-size: 12px;
+.coffee .type::after {
+    content: "...............";
+}
+#greeting {
+    position: absolute;
+    top: 120px;
+    width: 150px;
+    height: 45px;
+    font-size: 13px;
+    left: 57px;
+    color: white;
     font-style: italic;
-    margin-bottom: 10px;
+    white-space: normal;
+    overflow: hidden;
 }
-.coffee-price-tall,
-.coffee-price-grande,
-.coffee-price-venti {
-    width: 20%;
-    float: left;
-    font-size: inherit;
-}
-.sold-out .coffee-price-tall,
-.sold-out .coffee-price-grande,
-.sold-out .coffee-price-venti,
-.sold-out.coffee-price-grande,
-.sold-out.coffee-price-venti {
-    text-decoration: line-through;
-    color: red;
-}
-#menu div:last-child {
-    margin-bottom: 20px;
+.coffee.move,
+#greeting.move {
+    animation-name: moveMenu;
+    animation-delay: 1s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
 }
 
 #out {
     border: 15px solid #000;
     border-radius: 10px;
-    margin: 50px 0 0 50px;
     width: 600px;
     height: 338px;
+    background-color: #fff;
+    position: absolute;
+    left: 1182px; /*550px;*/
+    top: 20px;
+}
+#out.move {
+    animation-name: moveShopScreen;
+    animation-delay: 1s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
 }
 #out img {
     width: 600px;
@@ -86,6 +98,8 @@ body {
     padding: 10px;
 }
 #out .header {
+    font-size: 16px;
+    font-weight: bold;
     margin: -4px 20px 10px 20px;
 }
 #out .header .number {
@@ -97,7 +111,8 @@ body {
 }
 #out .header div,
 #items .item div {
-    width: 25%;
+    width: 120px;
+    margin: 0 4px;
     float: left;
     white-space: nowrap;
     overflow: hidden;
@@ -146,13 +161,51 @@ body {
 }
 .standard {
     width: 50px;
-    height: 100px;
-    background-color: #ccc;
-    margin-left: 340px;
+    height: 183px;
+    background-color: #bbb;
+    position: absolute;
+    top: 388px;
+    left: 1472px; /*840px*/
+    animation-name: moveShopStandard;
+    animation-delay: 1s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+.base {
+    width: 200px;
+    height: 30px;
+    background-color: #999;
+    position: absolute;
+    top: 541px;
+    left: 1402px; /*770px*/
+    animation-name: moveShopBase;
+    animation-delay: 1s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
 }
 @keyframes addItem {
     from {margin-left: -1000px;opacity: 0;}
     to {margin-left: 0;opacity: 1;}
+}
+@keyframes moveShop {
+    from {background-position-x: 0;}
+    to {background-position-x: -632px;}
+}
+@keyframes moveMenu {
+    from {left: 57px;}
+    to {left: -575px;}
+}
+@keyframes moveShopScreen {
+    from {left: 1182px;}
+    to {left: 550px;}
+}
+@keyframes moveShopStandard {
+    from {left: 1472px;}
+    to {left: 840px;}
+}
+@keyframes moveShopBase {
+    from {left: 1402px;}
+    to {left: 770px;}
 }
 
 @media screen and (max-width: 870px)

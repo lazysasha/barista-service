@@ -9,16 +9,29 @@
 </head>
 <body>
 
-<div id="out">
-    <div class="message">Your order is ready</div>
-    <div class="header">
-        <div>Customer</div><div>Item</div><div class="number">N<sup><u>o</u></sup> of items</div><div>Prepared by</div>
-    </div>
-    <div class="display">
-        <div id="items"></div>
-    </div>
+<div id="greeting" class="move">Welcome to the Craftsmen Coffeehouse! Here's our menu!</div>
+<div class="coffee move">
+    <div class="type">american</div>
+    <div class="price">€3.00</div>
+    <div class="type">espresso</div>
+    <div class="price">€4.00</div>
+    <div class="type">latte</div>
+    <div class="price">€5.00</div>
 </div>
-<div class="standard"></div>
+<div class="shop">
+    <div id="out" class="move">
+        <div class="message">Your order is ready</div>
+        <div class="header">
+            <div>Customer</div><div>Item</div><div class="number">N<sup><u>o</u></sup> of items</div><div>Prepared by</div>
+        </div>
+        <div class="display">
+            <div id="items"></div>
+        </div>
+    </div>
+    <div class="standard"></div>
+    <div class="base"></div>
+</div>
+<div class="filler"></div>
 
 <script src="../js/jquery.min.js"></script>
 <script src="out.js"></script>

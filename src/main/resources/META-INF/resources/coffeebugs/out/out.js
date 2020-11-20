@@ -25,6 +25,6 @@ $(document).ready(() => {
             document.querySelector('#items').innerHTML = items;
         };
     } else {
-        document.querySelector('#out').innerHTML = '<img src="bsod.png">';
+        document.querySelector('#out').innerHTML = '<img src="../images/bsod.png">';
     }
 });

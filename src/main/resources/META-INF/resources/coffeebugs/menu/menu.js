@@ -1,17 +1,16 @@
-$(document).ready(function(e) {
+$(document).ready(() => {
     $.ajax({
         type: 'GET',
         url: '/menu',
-        success: function (data) {
+        success: (data) => {
             document.querySelector('#greeting').innerHTML = data.greetingMessage;
-            let menu = '';
+            let menu = '<div class="coffee">';
             for (let item of data.menu) {
                 menu += '' +
-                    '<div class="coffee-type">' + item.beverage + '</div>' +
-                    '<div class="coffee-price-tall">' + item.price.toFixed(2) + '</div>' +
-                    '<div class="coffee-price-grande sold-out">' + (2 * item.price).toFixed(2) + '</div>' +
-                    '<div class="coffee-price-venti sold-out">' + (3 * item.price).toFixed(2) + '</div>';
+                    '<div class="type">' + item.beverage + '</div>' +
+                    '<div class="price">&euro;' + item.price.toFixed(2) + '</div>';
             }
+            menu += '</div>';
             document.querySelector('#menu').innerHTML = menu;
         }
     });
