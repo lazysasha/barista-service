@@ -66,6 +66,95 @@ body {
 #menu div:last-child {
     margin-bottom: 20px;
 }
+
+#out {
+    border: 15px solid #000;
+    border-radius: 10px;
+    margin: 50px 0 0 50px;
+    width: 600px;
+    height: 338px;
+}
+#out img {
+    width: 600px;
+}
+#out .message {
+    text-transform: uppercase;
+    text-align: center;
+    color: #00704A;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 10px;
+}
+#out .header {
+    margin: -4px 20px 10px 20px;
+}
+#out .header .number {
+    margin-top: -4px;
+}
+#out .header,
+#items .item {
+    padding: 20px;
+}
+#out .header div,
+#items .item div {
+    width: 25%;
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#out .display {
+    height: 244px;
+    overflow: hidden;
+    width: 100%;
+}
+#items {
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: content-box;
+}
+#items.more {
+    margin-right: -15px;
+}
+#items .item {
+    margin: 0 20px;
+    height: 20px;
+}
+#items .item div::first-letter {
+    text-transform: uppercase;
+}
+#items .item.show {
+    animation-name: addItem;
+    animation-duration: 2s;
+}
+#items .item:nth-child(odd) {
+    background-color: #E6F1ED;
+}
+#items .item:nth-child(even) {
+    background-color: #fff;
+    border: 1px solid #E6F1ED;
+}
+#items .item .number {
+    color: white;
+    background-color: #00704A;
+    padding: 5px;
+    width: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    height: 16px;
+    text-align: center;
+}
+.standard {
+    width: 50px;
+    height: 100px;
+    background-color: #ccc;
+    margin-left: 340px;
+}
+@keyframes addItem {
+    from {margin-left: -1000px;opacity: 0;}
+    to {margin-left: 0;opacity: 1;}
+}
+
 @media screen and (max-width: 870px)
 {
     .left {
