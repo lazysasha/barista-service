@@ -18,7 +18,26 @@
     <div class="type">latte</div>
     <div class="price">€5.00</div>
 </div>
-<div class="shop">
+<div class="shop move">
+    <div class="barista"></div>
+    <div class="speech-bubble">
+        <div class="order">
+            Hi! Welcome to CoffeeBugs!<br>
+            Your name is: <input type="text" id="customer-name"><br>
+            And what would you like to order?
+            <select id="beverage">
+                <option value="" disabled selected>Choose from the menu</option>
+                <option value="american">American</option>
+                <option value="espresso">Espresso</option>
+                <option value="latte">Latte</option>
+            </select>
+            <button onclick="order()">Order!</button>
+        </div>
+    </div>
+    <div class="arrow"></div>
+    <div class="inner-arrow"></div>
+    <div class="arrow-filler"></div>
+
     <div id="out" class="move">
         <div class="message">Your order is ready</div>
         <div class="header">
@@ -31,6 +50,7 @@
     <div class="standard"></div>
     <div class="base"></div>
 </div>
+<div class="counter move"></div>
 <div class="filler"></div>
 
 <script src="../js/jquery.min.js"></script>

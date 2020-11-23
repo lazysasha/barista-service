@@ -12,6 +12,8 @@ body {
     height: 626px;
     background-image: url(../images/shop.svg);
     background-repeat: no-repeat;
+}
+.shop.move {
     animation-name: moveShop;
     animation-delay: 1s;
     animation-duration: 3s;
@@ -183,6 +185,99 @@ body {
     animation-duration: 3s;
     animation-fill-mode: forwards;
 }
+
+.barista {
+    width: 175px;
+    height: 200px;
+    background-image: url(../images/barista.png);
+    position: absolute;
+    left: 20px;
+    top: 400px;
+    animation-name: popUpBarista;
+    animation-delay: 4s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+.counter {
+    width: 770px;
+    height: 238px;
+    background-image: url(../images/shop.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 388px;
+    background-position-y: -388px;
+    animation-name: moveShop;
+    animation-delay: 1s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+.speech-bubble {
+    background: #fff;
+    border-radius: 25px;
+    border: 1px solid #000;
+    height: 80px;
+    width: 260px;
+    position: absolute;
+    left: 175px;
+    top: 50px;
+    padding: 25px;
+    opacity: 0;
+    animation-name: appearSpeechBubble;
+    animation-delay: 7s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    z-index: 2;
+}
+.arrow {
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 60px solid transparent;
+    border-left: 60px solid #000;
+    position: absolute;
+    top: 120px;
+    left: 200px;
+    opacity: 0;
+    animation-name: appearSpeechBubble;
+    animation-delay: 7s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    z-index: 1;
+}
+.inner-arrow {
+    width: 0;
+    height: 0;
+    border-top: 49px solid transparent;
+    border-bottom: 59px solid transparent;
+    border-left: 58px solid #fff;
+    position: absolute;
+    top: 120px;
+    left: 201px;
+    opacity: 0;
+    animation-name: appearSpeechBubble;
+    animation-delay: 7s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    z-index: 1;
+}
+.arrow-filler {
+    height: 1px;
+    width: 45px;
+    background-color: #fff;
+    position: absolute;
+    left: 201px;
+    top: 181px;
+    opacity: 0;
+    animation-name: appearSpeechBubble;
+    animation-delay: 7s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    z-index: 2;
+}
+.order input {
+    width: 120px;
+}
+
 @keyframes addItem {
     from {margin-left: -1000px;opacity: 0;}
     to {margin-left: 0;opacity: 1;}
@@ -206,6 +301,14 @@ body {
 @keyframes moveShopBase {
     from {left: 1402px;}
     to {left: 770px;}
+}
+@keyframes popUpBarista {
+    from {top: 400px;}
+    to {top: 188px;}
+}
+@keyframes appearSpeechBubble {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 @media screen and (max-width: 870px)

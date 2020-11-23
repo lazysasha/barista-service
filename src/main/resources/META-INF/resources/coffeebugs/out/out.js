@@ -28,3 +28,31 @@ $(document).ready(() => {
         document.querySelector('#out').innerHTML = '<img src="../images/bsod.png">';
     }
 });
+
+function order() {
+    if (!document.querySelector('#customer-name') || !document.querySelector('#beverage')) {
+        return;
+    }
+    if (!document.querySelector('#customer-name').value || !document.querySelector('#beverage').value) {
+        return;
+    }
+
+    let customerName = document.querySelector('#customer-name').value
+    let beverage = document.querySelector('#beverage').value
+
+    let order = {
+        customerName: customerName,
+        beverage: beverage
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/orders',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(order),
+        success: () => {
+            document.querySelector('#customer-name').value = null;
+            document.querySelector('#beverage').value = null;
+        }
+    });
+}
