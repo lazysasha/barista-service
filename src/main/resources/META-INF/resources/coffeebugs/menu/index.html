@@ -6,16 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Menu</title>
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/tictactoe.css">
 </head>
 <body>
 
 <div id="greeting"></div>
-<div id="menu"></div>
+<div id="menu">
+    <div class="placeholder">
+        <table>
+            <tbody>
+            <tr>
+                <td id="pos-00"><button onclick="placeX(0,0)">X</button></td>
+                <td id="pos-01"><button onclick="placeX(0,1)">X</button></td>
+                <td id="pos-02"><button onclick="placeX(0,2)">X</button></td>
+            </tr>
+            <tr>
+                <td id="pos-10"><button onclick="placeX(1,0)">X</button></td>
+                <td id="pos-11"><button onclick="placeX(1,1)">X</button></td>
+                <td id="pos-12"><button onclick="placeX(1,2)">X</button></td>
+            </tr>
+            <tr>
+                <td id="pos-20"><button onclick="placeX(2,0)">X</button></td>
+                <td id="pos-21"><button onclick="placeX(2,1)">X</button></td>
+                <td id="pos-22"><button onclick="placeX(2,2)">X</button></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="strike"></div>
+    </div>
+</div>
 <div id="out"></div>
 <div class="filler"></div>
 
 <script src="../js/jquery.min.js"></script>
 <script src="menu.js"></script>
+<script src="tictactoe.js"></script>
 
 </body>
 </html>
