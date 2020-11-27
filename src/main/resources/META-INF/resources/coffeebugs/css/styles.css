@@ -186,11 +186,25 @@ body {
     animation-fill-mode: forwards;
 }
 
+.barista-order {
+    width: 175px;
+    height: 200px;
+    background-image: url(../images/barista.png);
+    position: absolute;
+    left: 550px;
+    top: 188px;
+}
 .barista {
     width: 175px;
     height: 200px;
     background-image: url(../images/barista.png);
     position: absolute;
+}
+.barista-order {
+    left: 550px;
+    top: 188px;
+}
+.barista-out {
     left: 20px;
     top: 400px;
     animation-name: popUpBarista;
@@ -218,15 +232,22 @@ body {
     height: 80px;
     width: 260px;
     position: absolute;
+    padding: 25px;
+    z-index: 2;
+}
+.speech-bubble-order {
+    left: 675px;
+    top: 50px;
+    opacity: 1;
+}
+.speech-bubble-out {
     left: 175px;
     top: 50px;
-    padding: 25px;
     opacity: 0;
     animation-name: appearSpeechBubble;
     animation-delay: 7s;
     animation-duration: 2s;
     animation-fill-mode: forwards;
-    z-index: 2;
 }
 .arrow {
     width: 0;
@@ -235,6 +256,18 @@ body {
     border-bottom: 60px solid transparent;
     border-left: 60px solid #000;
     position: absolute;
+    animation-name: appearSpeechBubble;
+    animation-delay: 7s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    z-index: 1;
+}
+.arrow-order {
+    top: 120px;
+    left: 700px;
+    opacity: 1;
+}
+.arrow-out {
     top: 120px;
     left: 200px;
     opacity: 0;
@@ -242,7 +275,6 @@ body {
     animation-delay: 7s;
     animation-duration: 2s;
     animation-fill-mode: forwards;
-    z-index: 1;
 }
 .inner-arrow {
     width: 0;
@@ -251,6 +283,14 @@ body {
     border-bottom: 59px solid transparent;
     border-left: 58px solid #fff;
     position: absolute;
+    z-index: 1;
+}
+.inner-arrow-order {
+    top: 120px;
+    left: 701px;
+    opacity: 1;
+}
+.inner-arrow-out {
     top: 120px;
     left: 201px;
     opacity: 0;
@@ -258,13 +298,20 @@ body {
     animation-delay: 7s;
     animation-duration: 2s;
     animation-fill-mode: forwards;
-    z-index: 1;
 }
 .arrow-filler {
     height: 1px;
     width: 45px;
     background-color: #fff;
     position: absolute;
+    z-index: 2;
+}
+.arrow-filler-order {
+    left: 701px;
+    top: 181px;
+    opacity: 1;
+}
+.arrow-filler-out {
     left: 201px;
     top: 181px;
     opacity: 0;
@@ -272,10 +319,22 @@ body {
     animation-delay: 7s;
     animation-duration: 2s;
     animation-fill-mode: forwards;
-    z-index: 2;
+}
+.order {
+    display: block;
 }
 .order input {
     width: 120px;
+}
+.success {
+    display: none;
+}
+.error {
+    font-size: 10px;
+    font-family: monospace;
+    overflow: hidden;
+    height: 96px;
+    word-break: break-word;
 }
 
 @keyframes addItem {

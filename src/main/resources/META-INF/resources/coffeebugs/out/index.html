@@ -19,8 +19,8 @@
     <div class="price">€5.00</div>
 </div>
 <div class="shop move">
-    <div class="barista"></div>
-    <div class="speech-bubble">
+    <div class="barista barista-out"></div>
+    <div class="speech-bubble speech-bubble-out">
         <div class="order">
             Hi! Welcome to CoffeeBugs!<br>
             Your name is: <input type="text" id="customer-name"><br>
@@ -33,10 +33,14 @@
             </select>
             <button onclick="order()">Order!</button>
         </div>
+        <div class="success">
+            Thank you for your order! When your order is ready, it will appear on the screen. Would you like to order again?
+            <button onclick="reOrder()">Order again!</button>
+        </div>
     </div>
-    <div class="arrow"></div>
-    <div class="inner-arrow"></div>
-    <div class="arrow-filler"></div>
+    <div class="arrow arrow-out"></div>
+    <div class="inner-arrow inner-arrow-out"></div>
+    <div class="arrow-filler arrow-filler-out"></div>
 
     <div id="out" class="move">
         <div class="message">Your order is ready</div>
@@ -54,7 +58,8 @@
 <div class="filler"></div>
 
 <script src="../js/jquery.min.js"></script>
-<script src="out.js"></script>
+<script src="../js/order.js"></script>
+<script src="../js/out.js"></script>
 
 </body>
 </html>
