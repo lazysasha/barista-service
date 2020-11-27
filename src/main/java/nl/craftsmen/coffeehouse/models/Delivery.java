@@ -13,4 +13,8 @@ public class Delivery {
     @NotEmpty
     public String createdBy;
 
+    @Override
+    public String toString() {
+        return "Customer '" + customerName + "', beverage: '" + beverage + "', prepared by '" + createdBy + "'";
+    }
 }

@@ -2,17 +2,18 @@ function order() {
     if (!document.querySelector('#customer-name') || !document.querySelector('#beverage')) {
         return;
     }
-    if (!document.querySelector('#customer-name').value || !document.querySelector('#beverage').value) {
+    if (!document.querySelector('#customer-name').value) {
         return;
     }
 
+    let order = {}
     let customerName = document.querySelector('#customer-name').value
     let beverage = document.querySelector('#beverage').value
 
-    let order = {
-        customerName: customerName,
-        beverage: beverage.toLowerCase()
-    };
+    order.customerName = customerName
+    if (beverage) {
+        order.beverage = beverage.toLowerCase()
+    }
 
     $.ajax({
         type: 'POST',
@@ -28,7 +29,11 @@ function order() {
             document.querySelector('#customer-name').value = null;
             document.querySelector('#beverage').value = null;
             document.querySelector('.order').style.display = 'block'
-            document.querySelector('.order').innerHTML = '<div class="error">' + data.responseText + '</div>'
+            if (data.status === 500) {
+                document.querySelector('.order').innerHTML = '<div class="error">' + data.statusText + '</div>'
+            } else {
+                document.querySelector('.order').innerHTML = '<div class="error">' + data.responseText + '</div>'
+            }
             document.querySelector('.success').style.display = 'none'
         }
     });

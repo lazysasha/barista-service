@@ -66,7 +66,7 @@ public class OrderCounterResource {
     @Counted(name = "receivedOrders", description = "How many orders are received")
     @Timed(name = "orderTimer", description = "A measure of how long it takes to process an order")
     public void order(@Valid Order order) {
-        logger.info("sending ordermodel for customer {} and beverage {} ", order.customerName, order.beverage.name());
+        logger.info("Sending Order for Customer '{}' and Beverage '{}'", order.customerName, order.beverage.name());
         orderEmitter.send(order);
     }
 }
