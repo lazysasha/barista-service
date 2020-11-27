@@ -99,7 +99,7 @@ Create a REST controller which receives the order and sends it to the `OrderPers
 
 #### Add Bean Validation
 
-Send an order with a beverage that doesn't exist, for example an "Irish Coffee". You should now see an exception in the application because the beverage could not be found.
+Send an order without a beverage. You should now see an exception in the application because the beverage could not be found.
 To prevent this we can add BeanValidation to the `orders` endpoint.
 
 - Add a `@Valid`-annotation to the Order parameter of the endpoint
@@ -107,8 +107,7 @@ To prevent this we can add BeanValidation to the `orders` endpoint.
 > ![Test][check] Test the endpoint by executing a POST call to 'http://localhost:8080/orders'
 > ```json
 > { 
->   "customerName": "Your name",
->   "beverage": "Irish Coffee"
+>   "customerName": "Your name"
 > }
 > ```
 > You should now get an HTTP Status code 400 - BAD REQUEST
@@ -244,10 +243,12 @@ Implement a metric that counts the number of orders placed in the system.
 
 In the  `OrderCounterResource` class:
 
-- Annotate the order endpoint with a `@Counted` annotation. The annotation takes a name and a description.
+- Annotate the order endpoint with `@Counted` and `@Timed` annotations. The annotations takes a name and a description.
 
-> ![Test][check] Place a couple of orders and open a new browser tab on 'http://localhost:8080/metrics'. You should be able to find the metric name and number of placed order somewhere in the list.
-
+> ![Test][check] Place a couple of orders and open a new browser tab on 'http://localhost:8080/metrics'. 
+> You should be able to find the metric name and number of placed order somewhere in the list as well as some timing information.
+>
+> You can also check the 'http://localhost:8080/metrics/vendor' and 'http://localhost:8080/metrics/application' endpoints to see only vendor specific and application specific metrics.
 
 ### Exercise 9: Build a native image
 
