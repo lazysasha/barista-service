@@ -40,7 +40,7 @@ Quarkus will start on port 8080 in development mode, which means that any change
 
 > ![Test][check] Test if the application runs using a browser going to `http://localhost:8080/coffeebugs/menu`
 
-> You should see the interior of the CoffeeBugs™ coffee shop with on the left a chalkboard with an 'empty' menu (not really empty, since you can play Tic Tac Toe on it)
+> You should see the interior of the CoffeeBugs ™ coffee shop with on the left a chalkboard with an 'empty' menu (not really empty, since you can play Tic Tac Toe on it)
 
 ### Exercise 1: Getting the menu
 
@@ -151,8 +151,6 @@ quarkus.hibernate-orm.database.generation=drop-and-create
 > #### With UI
 > ![Test][check] Place an order by going to `http://localhost:8080/coffeebugs/order`
 
-> You should now see an exception in the console log, complaining that the database operation is a blocking operation and is not allowed on an asynchronous thread.
-
 > #### Without UI
 > ![Test][check] Post an order to `http://localhost:8080/orders`
 > ```json
@@ -161,6 +159,8 @@ quarkus.hibernate-orm.database.generation=drop-and-create
 >   "beverage": "espresso"
 > }
 > ```
+
+You should now see an exception in the console log, complaining that the database operation is a blocking operation and is not allowed on an asynchronous thread.
 
 - Add a `Blocking` annotation to prevent this (or you can make the entire database transaction reactive, but we don't recommend that right now)
 
@@ -201,7 +201,8 @@ Retrieve the order from the database, prepare the delivery and send it to the co
 
 - Implement the `DeliveryDeserializer` class (see OrderSerializer for inspiration) so the counter can deserialize the message.
 - Create a new incoming and outgoing channel pair (3 properties each) in the `application.properties`.
-- Put the `DeliveryDeserializer` in the deserialization configuration for the incoming channel in the `application.properties`
+- Put the `DeliveryDeserializer` in the deserialization configuration for the incoming channel in the `application.properties`.
+- Add an additional property `broadcast` and set it to `true` for the incoming channel in the `application.properties`.
 - Choose a topic name (for example `delivery`).
 
 In the `makeBeverage` method in the `Barista` class:
@@ -211,7 +212,7 @@ In the `makeBeverage` method in the `Barista` class:
 - Return the `Delivery` as the result of the `makeBeverage` method
 - Add the appropriate annotations (see `OrderPersister`)
 
-In the `DeliveryCounterResource` we will create a fully reactive endpoint that can be opened as a stream by a browser.  The stream contains JSON content  
+In the `DeliveryCounterResource` we will create a fully reactive endpoint that can be opened as a stream by a browser. The stream contains JSON content.  
 
 - Create a GET endpoint with path `/outcounter` and which produces `test/event-stream` media types
 - Add the `@SseElementType` annotation with `application/json` media type 
@@ -235,21 +236,21 @@ In the `DeliveryCounterResource` we will create a fully reactive endpoint that c
 
 CoffeeBugs ™ has introduced a new endpoint for prices: `/prices/{productName}/v2`. They told you it's more up-to-date, more reliable, and faster. And they want you to switch immediately. Great! Well, not so great... the new endpoint is a disaster, often producing errors and seldom producing any price whatsoever. So, you decided you will make up your own price if the service doesn't work. Rebel!
 
-Make the rest client fault-tolerant by using Microprofile fault tolerance.
+Make the rest client fault-tolerant by using MicroProfile fault tolerance.
 
 In the `PricesClient`:
 
-* Add a  `Retry` annotation with `maxRetries` set to 2. 
-* Also, add a  `Fallback` annotation with a fallback method name. You can implement a fallback method with the same name as a default method on the interface.
+* Add a `Retry` annotation with `maxRetries` set to 2. 
+* Also, add a `Fallback` annotation with a fallback method name. You can implement a fallback method with the same name as a default method on the interface.
 * The fallback method should have the same signature as the client method. You can send a fixed price as a return type.
 
 > ![Test][check] Open a new browser tab on `http://localhost:8080/menu`. After a while, you should see the fixed prices.
 
-Now, this is working, but it takes quite a  while for each request. So, let's introduce a circuit breaker.
+Now, this is working, but it takes quite a while for each request. So, let's introduce a circuit breaker.
 
 In the `PricesClient`:
 
-* Add a  `CircuitBreaker` annotation. The default values should be fine. 
+* Add a `CircuitBreaker` annotation. The default values should be fine. 
 
 > ![Test][check] Open a new browser tab on `http://localhost:8080/menu` 
 >
@@ -260,7 +261,7 @@ In the `PricesClient`:
 
 At `http://localhost:8080/health/ready`, all the readiness probes report their status. We're going to make a new readiness probe where we can test the health of the prices endpoint.
 
-Implement the  `PriceClientHealthCheck` class:
+Implement the `PriceClientHealthCheck` class:
 
 - Annotate with `Readiness`
 
@@ -268,7 +269,7 @@ Implement the  `PriceClientHealthCheck` class:
 
 - Inject the `PricesClient` interface.
 
-- Build and return readiness response using the  `HealthCheckResponseBuilder`builder class. It has a factory method called `named` which you can use to give the probe a description.
+- Build and return readiness response using the `HealthCheckResponseBuilder`builder class. It has a factory method called `named` which you can use to give the probe a description.
 
 
 > ![Test][check] Open a new browser tab on `http://localhost:8080/health/ready`. You should now see the new probe appear under the description you gave it, with status "UP".
@@ -280,7 +281,7 @@ At `http://localhost:8080/metrics`, you can find a lot of default metrics in the
 
 Implement a metric that counts the number of orders placed in the system.
 
-In the  `OrderCounterResource` class:
+In the `OrderCounterResource` class:
 
 - Annotate the order endpoint with `@Counted` and `@Timed` annotations. The annotations takes a name and a description.
 
