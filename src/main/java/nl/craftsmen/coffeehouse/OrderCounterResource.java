@@ -5,6 +5,8 @@ import nl.craftsmen.coffeehouse.models.Menu;
 import nl.craftsmen.coffeehouse.models.Order;
 import nl.craftsmen.coffeehouse.models.Product;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -49,6 +51,8 @@ public class OrderCounterResource {
 
     @POST
     @Path("/orders")
+    @Counted
+    @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     public void order(@Valid Order order) {
         logger.info("Sending Order for Customer '{}' and Beverage '{}'", order.customerName, order.beverage.name());
