@@ -22,7 +22,7 @@ public interface PricesClient {
     @Path("/prices/{productName}/v2")
     @Retry(maxRetries = 2)
     @Fallback(fallbackMethod = "fallback")
-    @CircuitBreaker
+    @CircuitBreaker()
     Price get(@PathParam("productName") String productName);
 
     default Price fallback(String productName) {
